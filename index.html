@@ -1,12 +1,217 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>ABOBA</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Neon UI</title>
+    <style>
+        /* Сброс стилей и базовые настройки */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Глубокий градиентный фон, напоминающий космос/неон */
+            background: radial-gradient(circle at top left, #2b1055, #7597de);
+            background-size: cover;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Декоративные пятна на фоне для атмосферы */
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.6;
+        }
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: #ff00cc;
+            top: -100px;
+            left: -100px;
+        }
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: #333399;
+            bottom: -150px;
+            right: -100px;
+        }
+
+        /* Контейнер формы */
+        .signup-container {
+            position: relative;
+            z-index: 10;
+            background-color: #3f4458; /* Темно-серый цвет карточки */
+            padding: 40px 50px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            
+            /* Та самая фиолетовая рамка из референса */
+            border: 12px solid #a88eff; 
+            
+            /* Анимация появления */
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 35px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        /* Группы полей ввода */
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            width: 120px;
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            text-align: right;
+            padding-right: 20px;
+            font-weight: 500;
+        }
+
+        input {
+            flex: 1;
+            background-color: #2c3040; /* Цвет фона инпута */
+            border: 2px solid transparent;
+            border-radius: 6px;
+            padding: 12px 15px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            
+            /* Базовое состояние без тени */
+            box-shadow: none; 
+        }
+
+        input::placeholder {
+            color: #6b7280;
+        }
+
+        /* Эффект свечения при фокусе (как на референсе) */
+        input:focus {
+            border-color: #dcbdfc;
+            /* Фиолетовое неоновое свечение */
+            box-shadow: 0 0 15px 2px rgba(168, 142, 255, 0.6), inset 0 0 10px rgba(168, 142, 255, 0.2);
+            background-color: #353a4d;
+        }
+
+        /* Кнопка */
+        .btn-submit {
+            display: block;
+            margin: 40px auto 0;
+            background-color: #f4f4f4;
+            color: #222;
+            border: none;
+            padding: 12px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .btn-submit:hover {
+            background-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Адаптив для мобильных */
+        @media (max-width: 600px) {
+            .signup-container {
+                padding: 30px 20px;
+                border-width: 8px;
+                margin: 20px;
+            }
+            
+            .input-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            label {
+                width: 100%;
+                text-align: left;
+                padding-right: 0;
+                margin-bottom: 8px;
+                font-size: 1rem;
+            }
+
+            input {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav>
-      <a href="index.html">Main</a>
-      <a href="about.html">About</a>
-    </nav>
-  <h1>Main!</h1>
+
+    <!-- Декоративные элементы фона -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <div class="signup-container">
+        <h2>Sign up</h2>
+        
+        <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Форма отправлена!');">
+            <div class="input-group">
+                <label for="login">Login:</label>
+                <input type="text" id="login" name="login" placeholder="Enter your login" required autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="example@mail.com" required autocomplete="off">
+            </div>
+
+            <button type="submit" class="btn-submit">Sign up</button>
+        </form>
+    </div>
+
 </body>
 </html>
+
+
