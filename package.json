@@ -1,7 +1,7 @@
 {
-  "name": "neon-registration",
+  "name": "feyzex-work",
   "version": "1.0.0",
-  "description": "Registration system with SQLite3 and EJS",
+  "description": "Work on Cosmos",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
