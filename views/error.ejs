@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <%- include('partials/header', { title: title }) %>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at top left, #2b1055, #7597de);
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+        }
+        .error-container {
+            text-align: center;
+            background: #3f4458;
+            padding: 40px;
+            border-radius: 8px;
+            border: 4px solid #f44336;
+        }
+        .btn {
+            display: inline-block;
+            background: #f4f4f4;
+            color: #222;
+            padding: 10px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1>❌ Ошибка</h1>
+        <p><%= message %></p>
+        <a href="/" class="btn">На главную</a>
+    </div>
+</body>
+</html>
