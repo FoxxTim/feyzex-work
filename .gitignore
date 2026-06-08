@@ -1,3 +1,4 @@
-/node_modules/
-/pakage-lock.json
-/.env
+/in_processing/node_modules/
+/in_processing/pakage-lock.json
+/in_processing/.env
+/in_processing/users.db
