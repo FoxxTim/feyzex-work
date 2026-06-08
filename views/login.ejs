@@ -43,18 +43,10 @@
         }
 
         @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-            }
-            25% {
-                transform: translateY(-100px) translateX(50px);
-            }
-            50% {
-                transform: translateY(-50px) translateX(-30px);
-            }
-            75% {
-                transform: translateY(-150px) translateX(-50px);
-            }
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-50px) translateX(-30px); }
+            75% { transform: translateY(-150px) translateX(-50px); }
         }
 
         .login-container {
@@ -133,6 +125,10 @@
 
         .input-group {
             margin-bottom: 25px;
+        }
+
+        /* === ИСПРАВЛЕНИЕ: обёртка для точного позиционирования иконок === */
+        .input-wrapper {
             position: relative;
         }
 
@@ -144,6 +140,7 @@
             font-size: 1.2rem;
             color: #a88eff;
             z-index: 1;
+            pointer-events: none;
         }
 
         label {
@@ -166,6 +163,11 @@
             font-size: 1rem;
             outline: none;
             transition: all 0.3s ease;
+        }
+
+        /* Отступ справа для поля с иконкой-глазиком, чтобы текст не залезал под неё */
+        input.has-toggle {
+            padding-right: 45px;
         }
 
         input::placeholder {
@@ -321,6 +323,10 @@
                 padding: 12px 15px 12px 40px;
             }
 
+            input.has-toggle {
+                padding-right: 40px;
+            }
+
             .social-login {
                 flex-direction: column;
             }
@@ -339,14 +345,12 @@
         <h2>Вход в систему</h2>
         <p class="subtitle">Добро пожаловать обратно!</p>
         
-        <!-- Flash сообщения об успехе -->
         <% if (success_msg && success_msg.length > 0) { %>
             <div class="alert alert-success">
                 ✅ <%= success_msg %>
             </div>
         <% } %>
         
-        <!-- Flash сообщения об ошибках -->
         <% if (error_msg && error_msg.length > 0) { %>
             <div class="alert alert-danger">
                 ❌ <%= error_msg %>
@@ -354,28 +358,33 @@
         <% } %>
         
         <form action="/login" method="POST" id="loginForm">
+            <!-- === ИСПРАВЛЕНО: input обёрнут в .input-wrapper === -->
             <div class="input-group">
                 <label for="login">Логин или Email</label>
-                <span class="input-icon">👤</span>
-                <input type="text" 
-                       id="login" 
-                       name="login" 
-                       value="<%= formData.login || '' %>"
-                       placeholder="username или example@mail.com" 
-                       required 
-                       autocomplete="username"
-                       class="<%= error_msg ? 'is-invalid' : '' %>">
+                <div class="input-wrapper">
+                    <span class="input-icon">👤</span>
+                    <input type="text" 
+                           id="login" 
+                           name="login" 
+                           value="<%= formData.login || '' %>"
+                           placeholder="username или example@mail.com" 
+                           required 
+                           autocomplete="username"
+                           class="<%= error_msg ? 'is-invalid' : '' %>">
+                </div>
             </div>
 
             <div class="input-group">
                 <label for="password">Пароль</label>
-                <span class="input-icon">🔒</span>
-                <input type="password" 
-                       id="password" 
-                       name="password" 
-                       placeholder="••••••••" 
-                       required
-                       class="<%= error_msg ? 'is-invalid' : '' %>">
+                <div class="input-wrapper">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" 
+                           id="password" 
+                           name="password" 
+                           placeholder="••••••••" 
+                           required
+                           class="has-toggle <%= error_msg ? 'is-invalid' : '' %>">
+                </div>
             </div>
 
             <div class="forgot-password">
@@ -429,7 +438,7 @@
 
         createParticles();
 
-        // Показать/скрыть пароль (опционально)
+        // Показать/скрыть пароль
         const togglePassword = document.createElement('span');
         togglePassword.innerHTML = '👁️';
         togglePassword.style.cssText = `
@@ -444,9 +453,9 @@
         `;
         
         const passwordField = document.getElementById('password');
-        const passwordGroup = passwordField.parentElement;
-        passwordGroup.style.position = 'relative';
-        passwordGroup.appendChild(togglePassword);
+        // === ИСПРАВЛЕНО: добавляем глазик в .input-wrapper, а не в .input-group ===
+        const passwordWrapper = passwordField.parentElement;
+        passwordWrapper.appendChild(togglePassword);
 
         togglePassword.addEventListener('click', () => {
             const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
